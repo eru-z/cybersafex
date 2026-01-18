@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Emotion AI Analyzer</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>
+* { box-sizing:border-box; margin:0; padding:0; scroll-behavior:smooth; }
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+    background-size: cover;
+    color: #fff;
+    position: relative;
+}
+body::before {
+    content:"";
+    position:absolute; top:0; left:0;
+    width:100%; height:100%;
+    background: rgba(0,0,0,0.65);
+    z-index:-1;
+}
+
+/* Navigation */
+nav {
+    position: fixed;
+    top:0; left:0; width:100%;
+    background: rgba(0,0,0,0.6);
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 15px 30px;
+    z-index: 10;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+nav .logo { font-size: 24px; font-weight: bold; color:#1e90ff; }
+nav ul { list-style: none; display: flex; gap: 25px; }
+nav ul li { cursor: pointer; transition: color 0.3s; }
+nav ul li a { text-decoration: none; color:#fff; font-weight: 500; }
+nav ul li a:hover { color: #1e90ff; }
+
+/* Section styling */
+section { padding: 100px 20px; text-align: center; max-width: 900px; margin: 0 auto; }
+
+/* Home Section */
+#home { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; }
+#home .container {
+    backdrop-filter: blur(12px);
+    background: rgba(255,255,255,0.05);
+    border-radius: 20px;
+    padding: 40px 30px;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+    transition: transform 0.3s ease;
+}
+#home .container:hover { transform: translateY(-5px); }
+#home .logo img { width: 150px; border-radius: 12px; margin-bottom: 20px; transition: transform 0.3s; }
+#home .logo img:hover { transform: scale(1.15); }
+#home .description { font-size: 18px; margin-bottom: 30px; color: #e0e0e0; font-weight: 500; }
+textarea { width: 100%; min-height: 120px; border-radius: 15px; border: none; padding: 15px; font-size: 16px; color: #fff; background: rgba(255,255,255,0.1); backdrop-filter: blur(5px); margin-bottom: 20px; resize: vertical; box-shadow: inset 0 0 10px rgba(255,255,255,0.2); transition: all 0.3s ease; }
+textarea:focus { outline: none; box-shadow: 0 0 20px rgba(0, 191, 255, 0.7); }
+button { padding: 12px 30px; font-size: 16px; border: none; border-radius: 30px; cursor: pointer; background: linear-gradient(135deg, #280dad, #1e90ff); color: #fff; transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+button:hover { transform: scale(1.05); box-shadow: 0 8px 20px rgba(0,0,0,0.5); }
+#result-container p { font-size: 18px; font-weight: bold; margin-top: 20px; opacity: 0; animation: fadeIn 0.7s forwards; }
+@keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+
+/* Section Titles */
+.section-title { font-size: 32px; margin-bottom: 20px; color:#1e90ff; }
+.section-text { font-size: 18px; color:#ccc; line-height: 1.6; margin-bottom: 40px; }
+
+/* Features Section */
+.features { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
+.feature-card { background: rgba(255,255,255,0.05); padding: 25px; border-radius: 15px; flex: 1 1 250px; min-width: 220px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); transition: transform 0.3s, background 0.3s; }
+.feature-card:hover { transform: translateY(-5px); background: rgba(30,144,255,0.1); }
+.feature-card i { font-size: 40px; margin-bottom: 15px; color: #1e90ff; }
+
+/* FAQ Section */
+.faq { text-align: left; max-width: 700px; margin: 0 auto; }
+.faq-item { margin-bottom: 20px; }
+.faq-item h3 { cursor: pointer; font-size: 18px; margin-bottom: 5px; color:#1e90ff; }
+.faq-item p { display: none; color:#ccc; line-height:1.5; }
+
+/* Contact Section */
+.contact-form { display: flex; flex-direction: column; gap: 15px; max-width: 500px; margin: 0 auto; }
+.contact-form input, .contact-form textarea { padding: 12px; border-radius: 12px; border:none; background: rgba(255,255,255,0.1); color:#fff; }
+.contact-form button { align-self: center; }
+
+/* Footer */
+footer { text-align:center; color:#b0a8b9; font-size:14px; padding:20px 10px; }
+footer a { color:#b0a8b9; text-decoration:none; margin:0 5px; transition:color 0.3s; }
+footer a:hover { color:#fff; }
+
+@media(max-width:768px){ nav ul{ flex-direction: column; gap:10px; } .features{ flex-direction: column; } }
+</style>
+</head>
+<body>
+
+<nav>
+<div class="logo">
+  <a href="index.html" style="text-decoration: none; color: inherit;">CyberSafeX</a>
+</div>
+    <ul>
+        <li><a href="dfsd.html">Deep Fake Scam Detector</a></li>
+        <li><a href="ddnav.html">Digital DNA Verification</a></li>
+        <li><a href="acg.html">AI Cyber Guardian</a></li>
+        <li><a href="eai.html">Emotion AI</a></li>
+        <li><a href="hpa.html">Hack Prevention AI</a></li>
+    </ul>
+</nav>
+
+<!-- FAQ Section -->
+<section id="faq">
+<!-- Emotion AI Section -->
+<section id="emotion-ai" class="relative bg-gradient-to-br from-pink-900 via-purple-900 to-black text-white rounded-3xl shadow-2xl max-w-5xl mx-auto mt-16 p-12 overflow-hidden">
+
+  <!-- Decorative animated glow -->
+  <div class="absolute -top-20 -left-20 w-96 h-96 bg-pink-500/20 rounded-full filter blur-3xl animate-pulse"></div>
+  <div class="absolute -bottom-20 -right-20 w-96 h-96 bg-indigo-400/10 rounded-full filter blur-2xl animate-pulse"></div>
+
+  <div class="relative z-10 flex flex-col lg:flex-row gap-12 items-center">
+
+    <!-- Left: Circular Emotion Meter -->
+    <div class="flex-1 flex justify-center lg:-ml-[30px]" style="margin-left: 100px;">
+      <div class="relative w-48 h-48">
+        <svg class="w-48 h-48 transform -rotate-90">
+          <circle cx="96" cy="96" r="80" stroke="#444" stroke-width="16" fill="none"/>
+          <circle id="emotionCircle" cx="96" cy="96" r="80" stroke="lime" stroke-width="16" fill="none"
+            stroke-linecap="round" stroke-dasharray="503" stroke-dashoffset="503" class="transition-all duration-1000 ease-linear"/>
+        </svg>
+        <div class="absolute inset-0 flex flex-col items-center justify-center">
+          <span id="dominantEmotion" class="text-2xl font-extrabold" style="margin-left: -110px;"></span>😐 Neutral</span>
+          <span id="dominantPercent" class="text-gray-300 text-sm mt-2">0%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Input & Results Panel -->
+    <div class="flex-1 w-full max-w-md space-y-6 lg:ml-[30px]">
+      <h2 class="text-4xl font-extrabold text-center lg:text-left">🧠 Emotion AI Analyzer</h2>
+      <p class="text-gray-300 text-center lg:text-left">
+        Paste any text or message below, and our AI Emotion Analyzer will detect the dominant emotion and confidence levels.
+      </p>
+
+      <textarea id="emotionInput" rows="5" placeholder="Paste your text here..."
+        class="w-full p-4 rounded-2xl text-black border-2 border-transparent focus:border-pink-500 focus:ring-2 focus:ring-pink-500 transition-all shadow-inner"></textarea>
+
+      <div class="text-center lg:text-left">
+        <button onclick="analyzeEmotion()"
+          class="px-8 py-4 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 rounded-full font-bold text-lg shadow-lg transform hover:scale-105 transition-all duration-300">
+          🔍 Analyze Emotion
+        </button>
+      </div>
+
+      <!-- Results -->
+      <div id="emotionResult" class="hidden bg-black/50 rounded-2xl p-6 border border-purple-700 shadow-xl space-y-4 mt-4">
+        <div>
+          <h3 class="text-xl font-semibold text-pink-400">Emotion Confidence:</h3>
+          <ul id="emotionList" class="list-none space-y-2 mt-2">
+            <!-- Filled dynamically -->
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+function analyzeEmotion() {
+  const text = document.getElementById("emotionInput").value.trim();
+  const resultDiv = document.getElementById("emotionResult");
+  const emotionCircle = document.getElementById("emotionCircle");
+  const dominantEmotionEl = document.getElementById("dominantEmotion");
+  const dominantPercentEl = document.getElementById("dominantPercent");
+  const emotionList = document.getElementById("emotionList");
+
+  if (!text) {
+    alert("⚠️ Please enter some text first!");
+    return;
+  }
+
+  // Reset UI
+  resultDiv.classList.remove("hidden");
+  emotionList.innerHTML = "";
+  dominantEmotionEl.textContent = "😐 Neutral";
+  dominantPercentEl.textContent = "0%";
+  emotionCircle.style.strokeDashoffset = 503;
+  emotionCircle.style.stroke = "lime";
+
+  // Basic Emotion Analysis Logic (for demo)
+  const emotions = {
+    "Happy": {emoji:"😄", score:0},
+    "Sad": {emoji:"😢", score:0},
+    "Angry": {emoji:"😡", score:0},
+    "Surprised": {emoji:"😲", score:0},
+    "Neutral": {emoji:"😐", score:0}
+  };
+
+  // Simple keyword scoring
+  const lower = text.toLowerCase();
+  if(lower.match(/happy|joy|love|great|fantastic|excited/)) emotions.Happy.score += 30;
+  if(lower.match(/sad|unhappy|depressed|down|cry/)) emotions.Sad.score += 30;
+  if(lower.match(/angry|mad|furious|hate|frustrated/)) emotions.Angry.score += 30;
+  if(lower.match(/surprise|wow|amazing|shocked|unexpected/)) emotions.Surprised.score += 30;
+  if(Object.values(emotions).every(e=>e.score===0)) emotions.Neutral.score = 50;
+
+  // Calculate total for percentage
+  let total = Object.values(emotions).reduce((a,b)=>a+b.score,0);
+  if(total===0) total=1; // prevent div by zero
+
+  // Find dominant emotion
+  let dominant = Object.entries(emotions).sort((a,b)=>b[1].score - a[1].score)[0];
+  let domName = dominant[0], domScore = Math.round(dominant[1].score/total*100);
+
+  dominantEmotionEl.textContent = dominant[1].emoji + " " + domName;
+  dominantPercentEl.textContent = domScore + "%";
+
+  // Animate circle
+  let offset = 503 - (503 * domScore / 100);
+  emotionCircle.style.strokeDashoffset = offset;
+
+  // Color based on emotion
+  const colorMap = {
+    "Happy":"#22c55e",
+    "Sad":"#3b82f6",
+    "Angry":"#ef4444",
+    "Surprised":"#a855f7",
+    "Neutral":"#eab308"
+  };
+  emotionCircle.style.stroke = colorMap[domName] || "lime";
+
+  // Populate emotion list
+  Object.entries(emotions).forEach(([name, obj])=>{
+    const li = document.createElement("li");
+    li.textContent = `${obj.emoji} ${name}: ${Math.round(obj.score/total*100)}%`;
+    li.className = "text-gray-300";
+    emotionList.appendChild(li);
+  });
+}
+</script>
+</section>
+</body>
+</html>

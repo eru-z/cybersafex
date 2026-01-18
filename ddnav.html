@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital DNA Verification</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>
+/* Base */
+* { box-sizing:border-box; margin:0; padding:0; scroll-behavior:smooth; }
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+    background-size: cover;
+    color: #fff;
+    position: relative;
+}
+body::before {
+    content:"";
+    position:absolute; top:0; left:0;
+    width:100%; height:100%;
+    background: rgba(0,0,0,0.65);
+    z-index:-1;
+}
+
+/* Navigation */
+nav {
+  position: fixed; top:0; left:0; width:100%;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(8px);
+  display:flex; justify-content:space-between; align-items:center;
+  padding:15px 30px; z-index:10;
+  box-shadow:0 2px 15px rgba(0,0,0,0.6);
+}
+nav .logo { font-size:24px; font-weight:bold; color:#1e90ff; }
+nav ul { list-style:none; display:flex; gap:25px; }
+nav ul li a { text-decoration:none; color:#fff; font-weight:500; transition:0.3s; }
+nav ul li a:hover { color:#1e90ff; }
+
+/* Section */
+section { padding:120px 20px 80px; text-align:center; max-width:900px; margin:0 auto; }
+
+/* Section Title */
+.section-title {
+  font-size:3rem;
+  color:#1e90ff;
+  margin-bottom:15px;
+  letter-spacing:1px;
+  text-shadow:0 0 10px rgba(93, 120, 240, 0.7);
+}
+.section-text {
+  font-size:1.1rem;
+  color:#bbb;
+  margin-bottom:40px;
+  line-height:1.6;
+}
+
+/* Card */
+.card {
+  background: rgba(40, 47, 60, 0.7);
+  border-radius:25px;
+  padding:40px 30px;
+  box-shadow:0 15px 30px rgba(0,0,0,0.5);
+  margin-bottom:40px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.card:hover { transform: translateY(-8px); box-shadow:0 20px 40px rgba(93, 115, 240, 0.5); }
+
+/* Inputs */
+input[type="file"] {
+  width:100%;
+  padding:14px;
+  border-radius:15px;
+  border:none;
+  background: rgba(30,30,50,0.8);
+  color:#fff;
+  font-weight:500;
+  cursor:pointer;
+  transition:0.3s;
+}
+input[type="file"]:hover { background: rgba(93, 108, 240, 0.2); }
+
+/* Buttons */
+button {
+  padding:15px 40px;
+  background: linear-gradient(135deg, #0d10ad, #1e90ff);
+  border:none;
+  border-radius:50px;
+  color:#fff;
+  font-weight:600;
+  font-size:1rem;
+  cursor:pointer;
+  transition:0.3s;
+  box-shadow:0 5px 15px rgba(0,0,0,0.3);
+}
+button:hover {
+  transform:translateY(-3px) scale(1.05);
+  box-shadow:0 10px 25px rgba(93, 110, 240, 0.6);
+}
+
+/* Status & Badge */
+#status { margin-top:20px; font-size:1.2rem; font-weight:500; }
+#verifiedBadge { margin-top:20px; display:none; font-size:1.5rem; color:#4ade80; font-weight:700; }
+
+/* QR Section */
+.card h3 { color:#5d7af0; margin-bottom:15px; font-size:1.5rem; text-align:left; }
+
+/* Progress Steps */
+.progress-steps {
+  display:flex;
+  justify-content:space-between;
+  position:relative;
+  max-width:700px;
+  margin:50px auto 0;
+}
+.progress-steps::before {
+  content:'';
+  position:absolute;
+  top:20px;
+  left:0;
+  right:0;
+  height:4px;
+  background:#444;
+  border-radius:2px;
+  z-index:0;
+}
+.step {
+  position:relative;
+  z-index:1;
+  width:25%;
+  text-align:center;
+  padding:12px 0;
+  border-radius:30px;
+  background:#333;
+  font-weight:600;
+  transition:0.4s;
+}
+.step.active {
+  background:linear-gradient(135deg,#5d87f0,#1e90ff);
+  color:#fff;
+  transform:scale(1.1);
+  box-shadow:0 8px 20px rgba(124,93,240,0.5);
+}
+
+/* Responsive */
+@media(max-width:768px){
+  nav ul{ flex-direction:column; gap:10px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+<div class="logo">
+  <a href="index.html" style="text-decoration: none; color: inherit;">CyberSafeX</a>
+</div>
+  <ul>
+    <li><a href="dfsd.html">Deep Fake Scam Detector</a></li>
+    <li><a href="ddnav.html">Digital DNA Verification</a></li>
+    <li><a href="acg.html">AI Cyber Guardian</a></li>
+    <li><a href="eai.html">Emotion AI</a></li>
+    <li><a href="hpa.html">Hack Prevention AI</a></li>
+  </ul>
+</nav>
+
+<section id="digital-dna">
+  <h2 class="section-title">🔐 Digital DNA Verification</h2>
+  <p class="section-text">Securely verify your identity with our multi-step process.</p>
+
+  <!-- Upload Card -->
+  <div class="card">
+    <div style="margin-bottom:25px; text-align:left;">
+      <label style="display:block; margin-bottom:8px; font-weight:600; color:#ccc;">Upload Your ID</label>
+      <input type="file" id="idFile" accept="image/*">
+    </div>
+    <div style="margin-bottom:25px; text-align:left;">
+      <label style="display:block; margin-bottom:8px; font-weight:600; color:#ccc;">Upload Personal Photo</label>
+      <input type="file" id="personalPhoto" accept="image/*">
+    </div>
+    <button id="submitBtn">Submit Verification</button>
+    <div id="status"></div>
+    <div id="verifiedBadge"><i class="fas fa-check-circle"></i> Verified</div>
+  </div>
+
+  <!-- QR Code Card -->
+  <div class="card">
+    <h3>📷 Upload QR Code</h3>
+    <input type="file" id="qrFile" accept="image/*" style="margin-bottom:15px;">
+    <button id="scanQR">Verify QR Code</button>
+    <div id="qrResult"></div>
+  </div>
+
+  <!-- Progress Steps -->
+  <div class="progress-steps">
+    <div class="step active">1. Upload ID</div>
+    <div class="step">2. Upload Photo</div>
+    <div class="step">3. QR Code Scan</div>
+    <div class="step">4. Verified</div>
+  </div>
+</section>
+
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+</body>
+</html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hack Prevention AI</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>
+* { box-sizing:border-box; margin:0; padding:0; scroll-behavior:smooth; }
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+    background-size: cover;
+    color: #fff;
+    position: relative;
+}
+body::before {
+    content:"";
+    position:absolute; top:0; left:0;
+    width:100%; height:100%;
+    background: rgba(0,0,0,0.65);
+    z-index:-1;
+}
+
+
+/* Navigation */
+nav {
+    position: fixed;
+    top:0; left:0; width:100%;
+    background: rgba(0,0,0,0.6);
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 15px 30px;
+    z-index: 10;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+nav .logo { font-size: 24px; font-weight: bold; color:#1e90ff; }
+nav ul { list-style: none; display: flex; gap: 25px; }
+nav ul li { cursor: pointer; transition: color 0.3s; }
+nav ul li a { text-decoration: none; color:#fff; font-weight: 500; }
+nav ul li a:hover { color: #1e90ff; }
+
+/* Section styling */
+section { padding: 100px 20px; text-align: center; max-width: 900px; margin: 0 auto; }
+
+/* Home Section */
+#home { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; }
+#home .container {
+    backdrop-filter: blur(12px);
+    background: rgba(255,255,255,0.05);
+    border-radius: 20px;
+    padding: 40px 30px;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+    transition: transform 0.3s ease;
+}
+#home .container:hover { transform: translateY(-5px); }
+#home .logo img { width: 150px; border-radius: 12px; margin-bottom: 20px; transition: transform 0.3s; }
+#home .logo img:hover { transform: scale(1.15); }
+#home .description { font-size: 18px; margin-bottom: 30px; color: #e0e0e0; font-weight: 500; }
+textarea { width: 100%; min-height: 120px; border-radius: 15px; border: none; padding: 15px; font-size: 16px; color: #fff; background: rgba(255,255,255,0.1); backdrop-filter: blur(5px); margin-bottom: 20px; resize: vertical; box-shadow: inset 0 0 10px rgba(255,255,255,0.2); transition: all 0.3s ease; }
+textarea:focus { outline: none; box-shadow: 0 0 20px rgba(0, 191, 255, 0.7); }
+button { padding: 12px 30px; font-size: 16px; border: none; border-radius: 30px; cursor: pointer; background: linear-gradient(135deg, #0d20ad, #1e90ff); color: #fff; transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+button:hover { transform: scale(1.05); box-shadow: 0 8px 20px rgba(0,0,0,0.5); }
+#result-container p { font-size: 18px; font-weight: bold; margin-top: 20px; opacity: 0; animation: fadeIn 0.7s forwards; }
+@keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+
+/* Section Titles */
+.section-title { font-size: 32px; margin-bottom: 20px; color:#1e90ff; }
+.section-text { font-size: 18px; color:#ccc; line-height: 1.6; margin-bottom: 40px; }
+
+/* Features Section */
+.features { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
+.feature-card { background: rgba(255,255,255,0.05); padding: 25px; border-radius: 15px; flex: 1 1 250px; min-width: 220px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); transition: transform 0.3s, background 0.3s; }
+.feature-card:hover { transform: translateY(-5px); background: rgba(30,144,255,0.1); }
+.feature-card i { font-size: 40px; margin-bottom: 15px; color: #1e90ff; }
+
+/* FAQ Section */
+.faq { text-align: left; max-width: 700px; margin: 0 auto; }
+.faq-item { margin-bottom: 20px; }
+.faq-item h3 { cursor: pointer; font-size: 18px; margin-bottom: 5px; color:#1e90ff; }
+.faq-item p { display: none; color:#ccc; line-height:1.5; }
+
+/* Contact Section */
+.contact-form { display: flex; flex-direction: column; gap: 15px; max-width: 500px; margin: 0 auto; }
+.contact-form input, .contact-form textarea { padding: 12px; border-radius: 12px; border:none; background: rgba(255,255,255,0.1); color:#fff; }
+.contact-form button { align-self: center; }
+
+/* Footer */
+footer { text-align:center; color:#b0a8b9; font-size:14px; padding:20px 10px; }
+footer a { color:#b0a8b9; text-decoration:none; margin:0 5px; transition:color 0.3s; }
+footer a:hover { color:#fff; }
+
+@media(max-width:768px){ nav ul{ flex-direction: column; gap:10px; } .features{ flex-direction: column; } }
+</style>
+</head>
+<body>
+
+<nav>
+<div class="logo">
+  <a href="index.html" style="text-decoration: none; color: inherit;">CyberSafeX</a>
+</div>
+    <ul>
+        <li><a href="dfsd.html">Deep Fake Scam Detector</a></li>
+        <li><a href="ddnav.html">Digital DNA Verification</a></li>
+        <li><a href="acg.html">AI Cyber Guardian</a></li>
+        <li><a href="eai.html">Emotion AI</a></li>
+        <li><a href="hpa.html">Hack Prevention AI</a></li>
+    </ul>
+</nav>
+
+<!-- Contact Section -->
+<section id="contact">
+<!-- Hack Prevention AI Holo Section -->
+<section id="hack-ai-holo" class="relative w-full min-h-[700px] bg-black/90 text-white flex flex-col lg:flex-row rounded-3xl overflow-hidden shadow-2xl p-10 gap-10">
+
+  <!-- Left: Console / Input -->
+  <div class="flex-1 flex flex-col bg-gray-900/70 backdrop-blur-md rounded-2xl p-6 shadow-xl h-full">
+    <h2 class="text-3xl font-bold text-cyan-400 mb-4" style="color: #1e90ff;">🖥️ Hack Prevention Console</h2>
+    <p class="text-gray-400 mb-4" style="margin-bottom: 15px;">Paste a suspicious URL, code snippet, or message to analyze. Watch the scan in real-time.</p>
+    <textarea id="holoInput" rows="6" placeholder="Paste here..."
+      class="w-full p-4 rounded-xl bg-black/50 text-white border border-gray-700 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400 transition-all shadow-inner"></textarea>
+    <button onclick="holoScan()"
+      class="mt-4 self-start px-6 py-3 bg-cyan-600 hover:bg-cyan-700 rounded-full font-bold text-white shadow-lg transform hover:scale-105 transition-all">
+      🔍 Start Scan
+    </button>
+    <div id="holoLogs" class="mt-6 h-60 overflow-y-auto bg-black/40 rounded-xl p-4 text-sm font-mono text-green-400 border border-gray-700"></div>
+  </div>
+
+  <!-- Right: 3D Risk Meter Visualization -->
+  <div class="flex-1 flex flex-col items-center justify-center relative">
+    <h3 class="text-2xl font-bold text-cyan-400 mb-4">Risk Meter</h3>
+    <div class="w-20 h-72 bg-gray-800 rounded-3xl overflow-hidden shadow-inner relative">
+      <div id="riskMeter" class="absolute bottom-0 w-full bg-red-500 rounded-b-3xl transition-all duration-500"></div>
+    </div>
+    <span id="riskPercentage" class="mt-4 text-2xl font-bold text-white">0%</span>
+  </div>
+
+</section>
+
+<script>
+function holoScan() {
+  const input = document.getElementById("holoInput").value.trim();
+  const logs = document.getElementById("holoLogs");
+  const meter = document.getElementById("riskMeter");
+  const percent = document.getElementById("riskPercentage");
+
+  if(!input){ alert("Enter text to scan!"); return; }
+
+  logs.innerHTML = "";
+  meter.style.height = "0%";
+  percent.textContent = "0%";
+
+  let risk = 10;
+  let detected = [];
+
+  const suspiciousPatterns = ["eval","<script","malware","virus","hack","phishing","password","alert(","base64_decode","http://","https://"];
+  suspiciousPatterns.forEach(p=>{
+    if(input.toLowerCase().includes(p)){
+      risk += 15;
+      detected.push("⚠️ Detected pattern: " + p);
+    }
+  });
+
+  risk = Math.min(risk + Math.floor(Math.random()*15), 100);
+
+  // Simulate live scanning
+  let line = 0;
+  const scanLines = input.split(/\n|\.|!/);
+  const interval = setInterval(()=>{
+    if(line >= scanLines.length){
+      clearInterval(interval);
+      // Animate meter
+      meter.style.height = risk + "%";
+      if(risk<40) meter.style.backgroundColor="#22c55e";
+      else if(risk<70) meter.style.backgroundColor="#facc15";
+      else meter.style.backgroundColor="#ef4444";
+      percent.textContent = risk + "%";
+
+      // Add detected issues
+      detected.forEach(d=>{
+        const div = document.createElement("div");
+        div.textContent = d;
+        logs.appendChild(div);
+      });
+      if(detected.length===0){
+        const div = document.createElement("div");
+        div.textContent = "✅ No suspicious patterns detected.";
+        logs.appendChild(div);
+      }
+      return;
+    }
+
+    // Simulate typing log
+    const div = document.createElement("div");
+    div.textContent = `Scanning: "${scanLines[line].trim()}"`;
+    logs.appendChild(div);
+    logs.scrollTop = logs.scrollHeight;
+    line++;
+  }, 300);
+}
+</script>
+
+</section>
+
+<script>
+function analyzeMessage() {
+    const message = document.getElementById("message").value.toLowerCase();
+    const resultContainer = document.getElementById("result-container");
+    resultContainer.innerHTML = '';
+    const result = document.createElement("p");
+    const scamKeywords = ["win","jackpot","free","lottery","send money","bank","verification"];
+    const isScam = scamKeywords.some(keyword => message.includes(keyword));
+    if(isScam) { result.textContent = "⚠️ This message seems like a scam!"; result.style.color = "#ff4d4d"; }
+    else { result.textContent = "✅ This message seems safe."; result.style.color = "#32cd32"; }
+    resultContainer.appendChild(result);
+}
+
+// FAQ toggle
+const faqs = document.querySelectorAll('.faq-item h3');
+faqs.forEach(faq => {
+    faq.addEventListener('click', () => {
+        const p = faq.nextElementSibling;
+        p.style.display = (p.style.display === 'block') ? 'none' : 'block';
+    });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Cyber Guardian</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+* { box-sizing:border-box; margin:0; padding:0; scroll-behavior:smooth; }
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+    background-size: cover;
+    color: #fff;
+    position: relative;
+}
+body::before {
+    content:"";
+    position:absolute; top:0; left:0;
+    width:100%; height:100%;
+    background: rgba(0,0,0,0.65);
+    z-index:-1;
+}
+
+/* Navigation */
+nav {
+    position: fixed;
+    top:0; left:0; width:100%;
+    background: rgba(0,0,0,0.6);
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 15px 30px;
+    z-index: 10;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+nav .logo { font-size: 24px; font-weight: bold; color:#1e90ff; }
+nav ul { list-style: none; display: flex; gap: 25px; }
+nav ul li { cursor: pointer; transition: color 0.3s; }
+nav ul li a { text-decoration: none; color:#fff; font-weight: 500; }
+nav ul li a:hover { color: #1e90ff; }
+
+/* Section styling */
+section { padding: 100px 20px; text-align: center; max-width: 900px; margin: 0 auto; }
+
+/* Home Section */
+#home { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; }
+#home .container {
+    backdrop-filter: blur(12px);
+    background: rgba(255,255,255,0.05);
+    border-radius: 20px;
+    padding: 40px 30px;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+    transition: transform 0.3s ease;
+}
+#home .container:hover { transform: translateY(-5px); }
+#home .logo img { width: 150px; border-radius: 12px; margin-bottom: 20px; transition: transform 0.3s; }
+#home .logo img:hover { transform: scale(1.15); }
+#home .description { font-size: 18px; margin-bottom: 30px; color: #e0e0e0; font-weight: 500; }
+textarea { width: 100%; min-height: 120px; border-radius: 15px; border: none; padding: 15px; font-size: 16px; color: #fff; background: rgba(255,255,255,0.1); backdrop-filter: blur(5px); margin-bottom: 20px; resize: vertical; box-shadow: inset 0 0 10px rgba(255,255,255,0.2); transition: all 0.3s ease; }
+textarea:focus { outline: none; box-shadow: 0 0 20px rgba(0, 191, 255, 0.7); }
+button { padding: 12px 30px; font-size: 16px; border: none; border-radius: 30px; cursor: pointer; background: linear-gradient(135deg, #0d12ad, #1e90ff); color: #fff; transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+button:hover { transform: scale(1.05); box-shadow: 0 8px 20px rgba(0,0,0,0.5); }
+#result-container p { font-size: 18px; font-weight: bold; margin-top: 20px; opacity: 0; animation: fadeIn 0.7s forwards; }
+@keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+
+/* Section Titles */
+.section-title { font-size: 32px; margin-bottom: 20px; color:#1e90ff; }
+.section-text { font-size: 18px; color:#ccc; line-height: 1.6; margin-bottom: 40px; }
+
+/* Features Section */
+.features { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
+.feature-card { background: rgba(255,255,255,0.05); padding: 25px; border-radius: 15px; flex: 1 1 250px; min-width: 220px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); transition: transform 0.3s, background 0.3s; }
+.feature-card:hover { transform: translateY(-5px); background: rgba(30,144,255,0.1); }
+.feature-card i { font-size: 40px; margin-bottom: 15px; color: #1e90ff; }
+
+/* FAQ Section */
+.faq { text-align: left; max-width: 700px; margin: 0 auto; }
+.faq-item { margin-bottom: 20px; }
+.faq-item h3 { cursor: pointer; font-size: 18px; margin-bottom: 5px; color:#1e90ff; }
+.faq-item p { display: none; color:#ccc; line-height:1.5; }
+
+/* Contact Section */
+.contact-form { display: flex; flex-direction: column; gap: 15px; max-width: 500px; margin: 0 auto; }
+.contact-form input, .contact-form textarea { padding: 12px; border-radius: 12px; border:none; background: rgba(255,255,255,0.1); color:#fff; }
+.contact-form button { align-self: center; }
+
+/* Footer */
+footer { text-align:center; color:#b0a8b9; font-size:14px; padding:20px 10px; }
+footer a { color:#b0a8b9; text-decoration:none; margin:0 5px; transition:color 0.3s; }
+footer a:hover { color:#fff; }
+
+@media(max-width:768px){ nav ul{ flex-direction: column; gap:10px; } .features{ flex-direction: column; } }
+</style>
+</head>
+<body>
+    <nav>
+    <div class="logo">CyberSafeX</div>
+    <ul>
+        <li><a href="dfsd.html">Deep Fake Scam Detector</a></li>
+        <li><a href="ddnav.html">Digital DNA Verification</a></li>
+        <li><a href="acg.html">AI Cyber Guardian</a></li>
+        <li><a href="eai.html">Emotion AI</a></li>
+        <li><a href="hpa.html">Hack Prevention AI</a></li>
+    </ul>
+</nav>
+    <!-- Features Section -->
+<section id="features">
+  <section id="ai-guardian" 
+    class="p-10 bg-gradient-to-br from-purple-900 via-indigo-900 to-black text-white rounded-2xl shadow-2xl max-w-4xl mx-auto mt-12 border border-purple-700 relative overflow-hidden">
+
+    <!-- Decorative Cyber Glow -->
+    <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-tr from-pink-500/10 via-purple-500/5 to-transparent animate-pulse"></div>
+
+<div class="relative z-10 px-4 py-16 bg-gradient-to-b from-gray-900 via-gray-800 to-black rounded-3xl shadow-2xl max-w-4xl mx-auto" style="margin-bottom: 10px;">
+  <h2 class="text-4xl md:text-5xl font-extrabold mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-400 to-cyan-400 drop-shadow-lg" style="color: #1e90ff;">
+    AI Cyber Guardian
+  </h2>
+  <p class="mb-8 text-center text-gray-300 text-lg md:text-xl leading-relaxed">
+    Paste any suspicious message or email, and let our <span class="text-pink-400 font-semibold">AI Guardian</span> scan it for scams, phishing, or fraud attempts in <span class="text-pink-400 font-semibold">real time</span>.
+  </p>
+</div>
+
+      
+      <!-- Input -->
+      <textarea id="guardianInput" rows="5" 
+        class="w-full p-4 rounded-2xl text-black mb-6 shadow-inner border-2 border-transparent focus:ring-2 focus:ring-pink-500 transition-all"
+        placeholder="Paste the message here..."></textarea>
+      
+      <!-- Button -->
+      <div class="text-center">
+        <button onclick="scanMessage()" 
+          class="px-8 py-4 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 rounded-full font-bold text-lg shadow-lg transform hover:scale-105 transition-all duration-300">
+          🔍 Scan Message
+        </button>
+      </div>
+      
+      <!-- Results -->
+      <div id="guardianResult" 
+        class="mt-10 hidden p-8 bg-black/50 rounded-2xl shadow-xl border border-purple-700 text-center space-y-6">
+        
+        <!-- Circular Risk Meter -->
+        <div class="flex justify-center" style="margin-left: 150px;">
+          <div class="relative w-30 h-30">
+            <svg class="w-30 h-30 transform -rotate-80">
+              <circle cx="80" cy="80" r="70" stroke="gray" stroke-width="12" fill="none" />
+              <circle id="riskCircle" cx="80" cy="80" r="70" stroke="lime" stroke-width="12" fill="none" 
+                stroke-linecap="round" stroke-dasharray="439" stroke-dashoffset="439"
+                class="transition-all duration-1000 ease-linear"/>
+            </svg>
+            <div class="absolute inset-0 flex items-center justify-center">
+              <span id="riskScore" class="text-2xl font-extrabold" style="margin-left: -100px;">0%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Issues List -->
+        <div class="text-left">
+          <h3 class="text-xl font-semibold text-pink-400 mb-2">Detected Signals:</h3>
+          <ul id="issueList" class="list-disc list-inside space-y-1 text-gray-300"></ul>
+        </div>
+
+        <!-- Verdict -->
+        <p id="verdict" class="text-2xl font-bold mt-6"></p>
+      </div>
+    </div>
+  </section>
+</section>
+
+<script>
+function scanMessage() {
+  const msg = document.getElementById("guardianInput").value.trim();
+  const resultDiv = document.getElementById("guardianResult");
+  const riskCircle = document.getElementById("riskCircle");
+  const riskScoreEl = document.getElementById("riskScore");
+  const issueList = document.getElementById("issueList");
+  const verdictEl = document.getElementById("verdict");
+  
+  if (!msg) {
+    alert("⚠️ Please paste a message first!");
+    return;
+  }
+
+  // Reset UI
+  resultDiv.classList.remove("hidden");
+  issueList.innerHTML = "";
+  verdictEl.textContent = "";
+  riskScoreEl.textContent = "Scanning...";
+  riskCircle.style.strokeDashoffset = 439;
+
+  let riskScore = 10;
+  let issues = [];
+
+  // 1. Links detection
+  const links = msg.match(/https?:\/\/[^\s]+/gi);
+  if (links) {
+    riskScore += 40;
+    issues.push("🔗 Suspicious link: " + links[0]);
+
+    // Check domain
+    const safeDomains = ["google.com","microsoft.com","github.com"];
+    const domain = links[0].replace("http://","").replace("https://","").split("/")[0];
+    if (!safeDomains.some(sd => domain.includes(sd))) {
+      riskScore += 20;
+      issues.push("⚠️ Unfamiliar domain: " + domain);
+    }
+  }
+
+  // 2. Phishing keywords
+  const phishingWords = ["bank","login","password","account","verify","security","social security","paypal","irs","unlock","blocked","reset"];
+  phishingWords.forEach(word => {
+    if (msg.toLowerCase().includes(word)) {
+      riskScore += 20;
+      issues.push(`🛑 Keyword detected: "${word}"`);
+    }
+  });
+
+  // 3. Urgency / scam triggers
+  const scamTriggers = ["urgent","immediately","act now","transfer","gift card","win","winner","lottery","claim","prize","free","limited"];
+  scamTriggers.forEach(word => {
+    if (msg.toLowerCase().includes(word)) {
+      riskScore += 15;
+      issues.push(`⚡ Urgency detected: "${word}"`);
+    }
+  });
+
+  // 4. Odd formatting
+  if ((msg.match(/!/g) || []).length > 3) {
+    riskScore += 10;
+    issues.push("‼️ Excessive exclamation marks");
+  }
+  if (/[0-9]+/.test(msg) && /[$€]/.test(msg)) {
+    riskScore += 15;
+    issues.push("💰 Suspicious money request");
+  }
+  if (msg.length < 15) {
+    riskScore += 10;
+    issues.push("📏 Message unusually short");
+  }
+
+  // Cap score
+  riskScore = Math.min(riskScore, 100);
+
+  // Animate risk meter
+  let offset = 439 - (439 * riskScore / 100);
+  riskCircle.style.strokeDashoffset = offset;
+  riskCircle.style.stroke = riskScore >= 80 ? "red" : riskScore >= 50 ? "orange" : "lime";
+  riskScoreEl.textContent = riskScore + "%";
+
+  // List issues
+  if (issues.length === 0) {
+    issues.push("✅ No obvious scam signals detected");
+  }
+  issues.forEach(issue => {
+    const li = document.createElement("li");
+    li.textContent = issue;
+    issueList.appendChild(li);
+  });
+
+  // Verdict
+  if (riskScore >= 80) {
+    verdictEl.textContent = "🔴 High Risk – This is almost certainly a scam!";
+    verdictEl.className = "text-red-400 animate-pulse";
+  } else if (riskScore >= 50) {
+    verdictEl.textContent = "🟠 Medium Risk – Be cautious!";
+    verdictEl.className = "text-orange-400";
+  } else {
+    verdictEl.textContent = "🟢 Low Risk – Likely safe.";
+    verdictEl.className = "text-green-400";
+  }
+}
+</script>
+    <style>
+/* Buttons hover */
+#submitBtn:hover, #scanQR:hover {
+  background:#16079a;
+  transform:translateY(-2px);
+  box-shadow:0 5px 15px rgba(93, 105, 240, 0.4);
+}
+
+/* Progress Steps */
+.progress-steps {
+  display:flex;
+  justify-content:space-between;
+  position:relative;
+  font-size:1rem;
+  color:#aaa;
+}
+.progress-steps::before {
+  content:'';
+  position:absolute;
+  top:20px;
+  left:0;
+  right:0;
+  height:4px;
+  background:#444;
+  z-index:0;
+  border-radius:2px;
+}
+.step {
+  position:relative;
+  z-index:1;
+  width:25%;
+  text-align:center;
+  padding:12px 0;
+  border-radius:30px;
+  background:#333;
+  transition:0.4s ease;
+  font-weight:600;
+}
+.step.active {
+  background:#5d62f0;
+  color:#fff;
+  transform:scale(1.08);
+  box-shadow:0 5px 15px rgba(93, 93, 240, 0.5);
+}
+</style>
+</section>
+</body>
+</html>
